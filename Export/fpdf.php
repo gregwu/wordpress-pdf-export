@@ -602,6 +602,13 @@ function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link
 			$this->_out(sprintf('%.3F Tw',$ws*$k));
 		}
 	}
+
+	error_log("LLLLLLLL: list:$this->listnum > 0 && Y:$this->y < 11 , X:$this->x, '$txt' \n", 3, "/tmp/error.log");
+	if($this->listnum > 0 && $this->y < 11 /* && strlen($txt) == 2*/)
+	{
+		$this->SetX($this->x + 5, 'list ');
+	}
+
 	if($w==0){
 		$w = $this->w-$this->rMargin-$this->x;
 	}
@@ -811,7 +818,7 @@ function Write($h, $txt, $link='', $isList=0)
 	
 	
 	
-	error_log("Write: $txt, link:$link, isList:$isList, lMargin: $this->lMargin, $w = $this->w - $this->rMargin - $this->x , $wmax = ($w -2* $this->cMargin )*1000/ $this->FontSize ", 3, "/tmp/error.log");
+	error_log("Write: fun: ".debug_backtrace()[1]['function']. " txt: $txt, link:$link, isList:$isList, lMargin: $this->lMargin, $w = $this->w - $this->rMargin - $this->x , $wmax = ($w -2* $this->cMargin )*1000/ $this->FontSize ", 3, "/tmp/error.log");
 	$s = str_replace("\r",'',$txt);
 	$nb = strlen($s);
 	$sep = -1;
@@ -872,7 +879,7 @@ function Write($h, $txt, $link='', $isList=0)
 				//error_log("debug: isList:$isList, nl:$nl, i: $i, j: $j, l: $l, x: $this->x, lMargin:$this->lMargin, cMargin:$this->cMargin, w:$this->w, rMargin:$this->rMargin");
 				
 				if($isList > 0 && $nl == 2) {
-					$this->setX($this->x + 7);
+					$this->setX($this->x + 5); //Greg two column hack left padding
 					$w = $w - $this->lMargin - $this->x;
 				}
 				$this->Cell($w,$h,substr($s,$j,$sep-$j),0,2,'',false,$link, 3);
@@ -897,12 +904,13 @@ function Write($h, $txt, $link='', $isList=0)
 		
 		//error_log("debug: isList:$isList, nl:$nl, i: $i, j: $j, l: $l, x: $this->x, lMargin:$this->lMargin, cMargin:$this->cMargin, w:$this->w, rMargin:$this->rMargin");
 		$w = $l/1000*$this->FontSize;
-		if( $isList > 0 && $nl == 2) {
-			$this->setX($this->x + 6);
+		if( $isList > 0 && $nl == 2 ) {
+			$this->setX($this->x + 5);
 			//$this->setX($this->x + $this->lMargin);
 			$w = $w - $this->lMargin - $this->x;
 		}
-		$this->Cell($w,$h,substr($s,$j),0,0,'',false,$link, 4);
+		error_log("YYYYYYYY: isList: $isList, y: $this->y , str: ".substr($s,$j)."\n", 3, "/tmp/error.log");
+		$this->Cell($w,$h,substr($s,$j),0,0,'',false,$link, 44);
 	}
 }
 

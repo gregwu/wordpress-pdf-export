@@ -163,6 +163,7 @@ class File {
 		$pdf->SetFont('Arial','B',16);
 		$pdf->Cell(40,10, $request_data['form_data']['settings']['form_title'], 0, 1);
 		$pdf->SetFont('Arial','B',12);
+		$pdf->Image('./sf.png',180,8,-100);
 		//$pdf->Line(10, 20, 200, 20);
 		$pdf->Ln();
 
@@ -183,9 +184,12 @@ class File {
 					$pdf->SetFont('Courier','B',12);
 					$pdf->SetTextColor(10,154,220);//0a 9a dc
 					$pdf->Ln();
-					if($field->name == "Ethical Considerations"){
-						//break;
+					if(!in_array(trim($field->name), ["Model Details", "Model Detals"])){
+						$pdf->SetDrawColor(10,154,220);
+						$pdf->Line($pdf->GetX(), $pdf->GetY(), $pdf->GetX()+ 90, $pdf->GetY());
+						$pdf->Ln(2);
 					}
+					
 					$pdf->Cell(40,6, trim($field->name) , 0, 0);
 				}
 				else {

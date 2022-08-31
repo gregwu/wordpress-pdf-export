@@ -278,6 +278,9 @@ function AcceptPageBreak()
         // Keep on page
         return false;
     }
+    else if($this->x < 130 && $this->x > 105){
+      return false;
+    }
     else
     {
         // Go back to first column

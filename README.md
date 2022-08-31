@@ -1,2 +1,2 @@
 
-Wordpress WPForms PDF export plugin
+Wordpress WPForms PDF export plugin based on FPDF and HTML2FPDF
